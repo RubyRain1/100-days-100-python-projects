@@ -32,41 +32,47 @@ scissors = '''
       (____)
 ---.__(___)
 '''
+
+userchoice = [rock, paper, scissors]
+
 #this is the rock logic
 if player == 0 and cpu == 0:
-    print(rock)
-    print(f"computer chose: \n \n {rock} \n You Draw")
+    print(userchoice[0])
+    print(f"computer chose: \n \n {userchoice[0]} \n You Draw")
 
 if player == 0 and cpu == 1:
-    print(rock)
-    print(f"computer chose: \n \n {paper} \n You Lose")
+    print(userchoice[0])
+    print(f"computer chose: \n \n {userchoice[1]} \n You Lose")
 
 if player == 0 and cpu == 2:
-    print(rock)
-    print(f"computer chose: \n \n {scissors} \n You Win!!!")
+    print(userchoice[0])
+    print(f"computer chose: \n \n {userchoice[2]} \n You Win!!!")
 
 #this is the paper logic
 if player == 1 and cpu == 1:
-    print(paper)
-    print(f"computer chose: \n \n {paper} \n You Draw")
+    print(userchoice[1])
+    print(f"computer chose: \n \n {userchoice[1]} \n You Draw")
 
 if player == 1 and cpu == 0:
-    print(paper)
-    print(f"computer chose: \n \n {rock} \n You Win!!!")
+    print(userchoice[1])
+    print(f"computer chose: \n \n {userchoice[0]} \n You Win!!!")
 
 if player == 1 and cpu == 2:
-    print(paper)
-    print(f"computer chose: \n \n {scissors} \n You Lose")
+    print(userchoice[1])
+    print(f"computer chose: \n \n {userchoice[2]} \n You Lose")
 
 #this is the scissors logic
 if player == 2 and cpu == 2:
-    print(scissors)
-    print(f"computer chose: \n \n {scissors} \n You Draw")
+    print(userchoice[1])
+    print(f"computer chose: \n \n {userchoice[2]} \n You Draw")
 
 if player == 2 and cpu == 0:
     print(scissors)
-    print(f"computer chose: \n \n {rock} \n You Lose")
+    print(f"computer chose: \n \n {userchoice[0]} \n You Lose")
 
 if player == 2 and cpu == 1:
     print(scissors)
-    print(f"computer chose: \n \n {rock} \n You Win")
+    print(f"computer chose: \n \n {userchoice[1]} \n You Win")
+
+
+    
