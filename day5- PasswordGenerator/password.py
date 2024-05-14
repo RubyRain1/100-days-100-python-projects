@@ -20,17 +20,20 @@ password = [] * total
 for i in range(0, nrsymbols):
     #this is to get a random character
     rand3 = random.randint(0, len(symbols))
-    print(symbols[rand3], end="")
+    password.append(symbols[rand3 - 1])
     
 for i in range(0,nrletters):
 
     #this is to get a random character
     rand1 = random.randint(0,len(letters))
-    print(letters[rand1], end="")
+    password.append(letters[rand1 - 1])
 
 for i in range(0, nrnumbers):
     #this is to get a random character  
     rand2 = random.randint(0, len(numbers))
-    print(numbers[rand2], end="")
+    password.append(numbers[rand2 - 1])
 
-
+#this will shuffle all appended values in password, shuffles them and then joins them into a single string no spaces.
+random.shuffle(password)
+result = ''.join(password)
+print(result)
