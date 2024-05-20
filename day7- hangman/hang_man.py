@@ -1,5 +1,7 @@
 import random
 
+
+#this file will hold key variables that are going to be used in solution.py
 wList = ["ardvark", "baboon", "camel", "zebra"]
 chosenlist = []
 wrong = 0 

@@ -4,18 +4,20 @@ import hang_man
 
 
 
-
+#this will use imported variables from hang_man.py in order to create 
+#a functioning hangman game.
 def game():
 
     print(hang_man.title)   
-    
+
     while hang_man.check in hang_man.chosenlist and hang_man.wrong <= 5:
 
         guess = input("guess a letter: ").lower()
 
 
         
-    
+        if guess in hang_man.chosenlist:
+            print("you have already guessed this")
      
         if guess not in hang_man.chosenword and hang_man.wrong == 0:
             print("not in word")
@@ -47,7 +49,7 @@ def game():
 
         #checks if a letter is in the chosen word and then
         #sets it equal to the index in chosen list. 
-        for i in range(0,len(hang_man.chosenword)):
+        for i in range(len(hang_man.chosenword)):
             if guess in hang_man.chosenword[i]:
                 hang_man.chosenlist[i] = guess
                 print(hang_man.HANGMANPICS[hang_man.wrong])
