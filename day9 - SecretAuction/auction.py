@@ -5,6 +5,9 @@ print("Welcome to the secret auction program.")
 bids = {}
 cont = True
 
+
+def auction(record):
+    
 while cont:
 #this is the start input 
     name = input("what is your name?: ")
