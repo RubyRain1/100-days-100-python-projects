@@ -25,7 +25,7 @@ def hBid(records):
 # #repeat auction WHILE LOOP
 while cont:
     name = input("what is your name?: ")
-    bid = int(input("what is your bid?:"))
+    bid = int(input("what is your bid?: $"))
     bids[name] = bid
     userI = input("Would you like to place another bet?: ").lower()
 
