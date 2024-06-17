@@ -1,25 +1,39 @@
+from art import logo
+
+print(logo)
 print(''' this will be ascii art soon ''')
 print("Welcome to the secret auction program.")
 
 
 bids = {}
+
 cont = True
 
 
-def auction(record):
+#function to store highest bid FOR LOOP
+def hBid(records):
+    highestbid = 0  
+    winner = ""
     
+    for bidder in records:
+        bidA = records[bidder]
+        if bidA > highestbid:
+            highestbid = bidA
+            winner =  bidder
+    print(f"winner is {winner} with amount of {highestbid}")
+    
+# #repeat auction WHILE LOOP
 while cont:
-#this is the start input 
     name = input("what is your name?: ")
-    bid = input("what is your bid?: ")
+    bid = int(input("what is your bid?:"))
     bids[name] = bid
-        
-    userI = input("are there any other bidders? 'yes' or 'no'. ").lower()
+    userI = input("Would you like to place another bet?: ").lower()
 
-    if userI == 'yes':
-        cont = True
-        
-    elif userI == 'no':
+    if userI == 'n' or userI == 'no':
         cont = False
-        
+        hBid(bids)
+    else:
+        cont = True
+       
+
 
