@@ -11,15 +11,15 @@ cont = True
 
 
 #function to store highest bid FOR LOOP
-def hBid(records):
+def hBid(records): # creates new dictionary known as records
     highestbid = 0  
     winner = ""
     
-    for bidder in records:
-        bidA = records[bidder]
+    for key in records: #loops through the records dictionary to assign highest value and winner
+        bidA = records[key]
         if bidA > highestbid:
             highestbid = bidA
-            winner =  bidder
+            winner =  key
     print(f"winner is {winner} with amount of {highestbid}")
     
 # #repeat auction WHILE LOOP
