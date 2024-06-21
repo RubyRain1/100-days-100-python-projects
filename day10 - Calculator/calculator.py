@@ -20,37 +20,34 @@ mathC = {
     "/": divide
 }
 
-cont = True
-n3 = 0
-
-n1 = int(input("what is the first number? "))
-  
 
 
-for key in mathC: #loop through dictionary to print operations
-    print(key)
-operationS = input("which operation do you want to use? ")
-n2 = int(input("what is the next number? "))
+def calculation():
 
-operation = mathC[operationS]
-firstanswer = operation(n1,n2)
-print(f"{n1} {operationS} {n2} = {firstanswer}")
+    cont = True
+    n1 = float(input("what is the first number? "))
+    for key in mathC: #loop through dictionary to print operations
+        print(key)
 
-while cont: #loop to get allow unlimted inputs.
-    newanswer = operation(firstanswer, n3)
 
-    userI = input(f"Type 'y' to continue calculating with {newanswer} or type 'n to exit").lower()
-    if userI == 'y':
-        for key in mathC: #loop through dictionary to print operations
-            print(key)
-        operationS = input("pick an operation: ")
-        n3 = int(input("What is the next number? "))
-        sum = newanswer
-        newanswer = operation(newanswer, n3)
-        print(f"{sum} {operationS} {n3} = {newanswer}")
+    while cont: #loop to get allow unlimted inputs.
+
+        operationS = input("which operation do you want to use? ")
+        n2 = float(input("what is the next number? "))
+
+        operation = mathC
+        firstanswer = operation(n1,n2)
+        print(f"{n1} {operationS} {n2} = {firstanswer}")
+
+        userI = input(f"Type 'y' to continue calculating with {firstanswer} or type 'new' to start a new calculation" +
+        " or type 'n' to exit: ").lower()
         
-    else: 
-        print(f"thank you for using the calculator app!")
-        cont = False
-    
+        if userI == "y":
+            n1 = firstanswer
+        elif userI == "new":
+            calculation()
+        else:
+            cont = False
+calculation()
+
 
