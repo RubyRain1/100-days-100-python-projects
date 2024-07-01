@@ -8,7 +8,11 @@ userI = "" #this will be used for most user input.
 pTotal = 0 #this allows for reference of player total
 dTotal = 0 #this allows for reference of dealer total
 cont2 = True
+restart = True
 bust = False
+restart = False
+hit = ""
+newgame = ""
 #starting hand
 def start():
     for i in range(2):
@@ -16,57 +20,79 @@ def start():
         rand2 = random.randint(0,12)
         phand.append(cards[rand])
         dhand.append(cards[rand2])
-    shand1 = print(f"your starting hand is {phand}") #this is for the players starting hand
     shand2 = print(f"dealers starting hand is {dhand}") #this is for the dealers starting hand
+    shand1 = print(f"your starting hand is {phand}") #this is for the players starting hand
     return shand1, shand2
-    
-def dealer(dTotal, cont2, bust):
-    
-    while cont2:
-        randHit = random.randint(0,12) #this will be used for the player and dealer hitting.
-        if dTotal < 17:
-            dhand.append(cards[randHit])
-            for i in range(len(dhand)):
-                dTotal += dhand[i - 1]
-        elif dTotal > 17:
-             cont2 = False
-    if dTotal > 21:
-        print(f"dealer bust with {dTotal}")
-        bust = True
-    else: 
-        print(f"dealers total: {dTotal}")
-    print(dhand)   
-    return bust
-def player(pTotal, cont2, dhand):   
-    hit = input("would you like to draw another card? ")
-    while cont2:
-        randHit = random.randint(0,12) #this will be used for the player and dealer hitting.
+
+while cont: #this will be the rest of the game
+    if not restart:
+        #this is the beginning of the game 
+        begin = input("would you like to play a game of black jack? ")
+        if begin == "y":
+            start() #this begins the program by giving the player and dealer two values from the cards list. 
+        elif begin == "n": 
+            print("thank you for playing")
+    elif restart: 
+        start()
+        restart = False
+    while hit != "n":
+        hit = input("would you like to draw another card? ")
+        randHit = random.randint(0,12)
+        randHitD = random.randint(0,12)
         if hit == "y":
+            #additional deal total
+            if dTotal <17:
+                dhand.append(cards[randHitD])
+            elif dTotal > 21:
+                dBust = True #this flag will be used later to win or lose game based on dealer bust 
             phand.append(cards[randHit])
             print(f"dealers hand: {dhand}")
-            print(f"players hand: {phand}")
-            hit = input("would you like to draw another card? ")
-        else:
+            print(f"your hand: {phand}")
+            for i in range(len(dhand)):
+                dTotal += dhand[i]
+        #this is the logic to end the game.
+        elif hit == "n":
+            if dTotal == 0:
+                for i in range(len(dhand)):
+                    dTotal += dhand[i]
             for i in range(len(phand)):
                 pTotal += phand[i]
-                cont2 = False
-    if dealer(dTotal, cont2, bust) == True:
-        print("the dealer busted")
-    else: 
-        print("this works")
-    return print(pTotal)
-#this is the beginning of the game 
-begin = input("would you like to play a game of black jack? ")
-if begin == "y":
-    start() #this begins the program by giving the player and dealer two values from the cards list. 
-elif begin == "n": 
-    print("thank you for playing")
+            if pTotal > 21:
+                pBust = True
+            else:
+                if pTotal > dTotal:
+                    print(f"dealer total: {dTotal}")
+                    print(f"Player Total: {pTotal}")
+                    newgame = input("you have succefully defeated the dealer YOU WIN!!! Would you like to play again? ")   
+                elif dTotal > pTotal: 
+                    print(f"dealer total: {dTotal}")
+                    print(f"Player Total: {pTotal}")
+                    newgame = input("Dealer Has Higher Total! YOU LOSE! Would you like to play again? ") 
+                elif dTotal == pTotal:
+                    print(f"dealer total: {dTotal}")
+                    print(f"Player Total: {pTotal}")
+                    newgame = input("BOTH TOTALS EQUAL!! DRAW!! Would you like to play again? ")  
+                elif pBust == False and dBust == True:
+                    newgame = input("DEALER BUST!! PLAYER WINS!! Would you like to play again? ")
+                elif pBust == True and dBust == False: 
+                    newgame = input("Player Bust Dealer Wins. Would you like to play again? ")
+                elif pBust == True and dBust == True:
+                    newgame = input("both player and dealer bust! DRAW!! Would you like to play again? ")
+          
 
-while cont: #this will be the rest of the
-    dealer(dTotal, cont2, bust)
-    player(pTotal, cont2, dhand)
+    if newgame == "y":
+        dhand = [] #this will clear each list on restart
+        phand = []
+        dTotal = 0
+        pTotal = 0
+        hit = ""
+        restart = True
+    elif newgame == "n":
+        cont = False
+            
+
+
+
+
+
     
-    cont = False
-
-
-
