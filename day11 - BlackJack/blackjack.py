@@ -24,7 +24,8 @@ def start():
     shand1 = print(f"your starting hand is {phand}") #this is for the players starting hand
     return shand1, shand2
 
-while cont: #this will be the rest of the game
+#this will be the rest of the game
+while cont: 
     if not restart:
         #this is the beginning of the game 
         begin = input("would you like to play a game of black jack? ")
