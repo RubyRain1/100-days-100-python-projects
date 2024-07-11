@@ -1,15 +1,8 @@
-'''
-project needs
-1. print a report of resources and money
-2. check if there are enough resources to make desired product.
-3. process coin payment (penny-quarters.)
-4. check if payment is enough for desired product.
-5. make the coffee.
-'''
 
 #global variables
 bank = 0.0
 order = 0.0
+change = 0.0
 cont = True
 payment = []
 #constant dictionary
@@ -50,7 +43,7 @@ COINS = {
 resources = {
     "water":300,
     "milk": 200,
-    "coffee":100
+    "coffee": 100
 }
 
 
@@ -67,30 +60,68 @@ def pay():
     pennies = int(input("how many pennies: "))
     payment.append(round(pennies * COINS['penny'], 2))
 
-def espresso():
-    global bank
-    if resources['water'] > MENU['espresso']['ingredients']['water']:
-        print("your coffee was made")
-        bank += order
-        resources['water'] -= MENU['espresso']['ingredients']['water']
-        print(resources['water'])
-        print(bank)
+#this is the latte calculations for orders
 def latte():
-    print("filler")
+    global bank
+    global change
+    if order < MENU['latte']['cost']:
+        print(f"you paid {order} the price of a latte is {MENU['latte']['cost']},\n"
+              f"please order again")
+    elif resources['water'] < MENU['latte']['ingredients']['water']:
+        print("we are out of water, here is a refund. Please order again.")
+    elif resources['milk'] < MENU['latte']['ingredients']['milk']:
+        print("we are out of milk, here is a refund. Please order again.")
+    elif resources['coffee'] < MENU['latte']['ingredients']['coffee']:
+        print("we are out of coffee beans, here is a refund. Please order again!")
+    else:
+        print("your latte was made")
+        bank += MENU['latte']['cost']
+        resources['water'] -= MENU['latte']['ingredients']['water']
+        resources['coffee'] -= MENU['latte']['ingredients']['coffee']
+        resources['milk'] -= MENU['latte']['ingredients']['milk']
+        print(f"Here is your change: ${round(change, 2)}")
 
+#this is the espresso calculations for orders
+def espresso():
+    global bank #have to modify global variable.
+    global change
+    #check if there are enough resources and subracts from total resources.
+    if order < MENU['espresso']['cost']:
+        print(f"you paid {order}, the cost of an espresso is {MENU['espresso']['cost']}\n"
+              f"please order again.")
+    elif resources['water'] < MENU['espresso']['ingredients']['water'] :
+        print("we are out of water, here is a refund. Please order again.")
+    elif resources['coffee'] < MENU['espresso']['ingredients']['coffee']:
+        print("we are out of coffee beans, here is a refund. Please order again!")
+    else:
+        print("your espresso was made")
+        bank += MENU['espresso']['cost']
+        resources['water'] -= MENU['espresso']['ingredients']['water']
+        resources['coffee'] -= MENU['espresso']['ingredients']['coffee']
+        print(f"Here is your change: ${round(change, 2)}")
+
+#this is the cappuccino calculations for orders
 def cappuccino():
-    print("filler")
-'''
-ask what they want DONE
-store value DONE
-if user enters report display remaining resources and money earned.
-prompt user to insert coins
-user inputs coins
-check if amount inputed by user is enough for desired drink 
-if not refund and ask again
-if enough give coffee and subtract from total resources while adding to money total
-if not enough resources display lack of x material 
-'''
+    global bank  # have to modify global variable.
+    global change
+    # check if there are enough resources and subracts from total resources.
+    if order < MENU['cappuccino']['cost']:
+        print(f"you paid {order}, the cost of an cappuccino is {MENU['cappuccino']['cost']}\n"
+              f"please order again.")
+    elif resources['water'] < MENU['cappuccino']['ingredients']['water']:
+        print("we are out of water, here is a refund. Please order again.")
+    elif resources['coffee'] < MENU['cappuccino']['ingredients']['coffee']:
+        print("we are out of coffee beans, here is a refund. Please order again!")
+    elif resources['milk'] < MENU['cappuccino']['ingredients']['milk']:
+        print("we are out of milk, here is a refund. Please order again.")
+    else:
+        print("your cappuccino was made")
+        bank += MENU['cappuccino']['cost']
+        resources['water'] -= MENU['cappuccino']['ingredients']['water']
+        resources['coffee'] -= MENU['cappuccino']['ingredients']['coffee']
+        print(f"Here is your change: ${round(change, 2)}")
+
+
 #project begin
 while cont:
     userI = input("what would you like to order (espresso/latte/cappuccino) ").lower()
@@ -99,18 +130,28 @@ while cont:
         print(f"Water: {resources['water']}ml \nMilk: {resources['milk']}ml"
               f"\nCoffee: {resources['coffee']}g \nMoney: ${bank}")
     else:
-        pay()
+        pay() #prompts user to input coins
         for i in range(len(payment)):
             order += payment[i]
+            change = order - MENU[userI]['cost']
         if userI == "espresso":
             espresso()
         elif userI == "latte":
             latte()
         elif userI == "cappuccino":
             cappuccino()
+        #used to repeat and clear all money values other than bank.
+        userI = input("would you like another coffee? ").lower()
 
-
-
+        if userI == "y" or userI == "yes":
+            change = 0.0
+            order = 0.0
+            payment= []
+            userI = ""
+            cont = True
+        else:
+            print("thank you for your order, have a wonderful day!")
+            cont = False
 
 
 
