@@ -7,18 +7,18 @@ menu = Menu()
 report = CoffeeMaker()
 money = MoneyMachine()
 
-def report_print():
-    return report.report(), money.report()
-
-def make_coffe():
-    report.make_coffee(userI)
 while cont:
-    userI = input("what would you like? (espresso/latte/cappuccino): ")
-    if userI == "report":
-        report_print()
-    elif userI == "latte":
-        make_coffe()
-    elif userI == "espresso":
-        print("espresso")
+    options = menu.get_items()
+    userI = input(f"what would you like? {options}: ")
+    if userI == "n":
+        cont = False
+    elif userI == "report":
+        report.report()
+        money.report()
+    else:
+        drink = menu.find_drink(userI)
 
-
+        if report.is_resource_sufficient(drink) and money.make_payment(drink.cost):
+            print(f"here is your {options}")
+        else:
+            "we cannot make the requested drink"
