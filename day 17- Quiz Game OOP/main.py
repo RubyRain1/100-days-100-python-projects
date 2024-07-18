@@ -1,0 +1,25 @@
+from data import question_data
+import random
+from Quiz import Question, QuizBrain
+
+question_bank = []
+# given_q = random.randint(0,11)
+data = question_data
+#
+# init_question = Question(data['text'], data['answer'])
+
+for i in range(len(question_data)):
+    qText = (data[i]['text'])
+    qAns = (data[i]['answer'])
+    qNew = Question(qText, qAns)
+    question_bank.append(qNew)
+
+qNum = QuizBrain(question_bank)
+is_true = qNum.still_has_question()
+
+while is_true:
+    qNum.next_question()
+
+if not is_true:
+    print("You have completed the quiz")
+    print(f"your total score was {qNum.score}/{qNum.question_number}")
