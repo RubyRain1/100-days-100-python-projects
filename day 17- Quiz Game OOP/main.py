@@ -9,8 +9,8 @@ data = question_data
 # init_question = Question(data['text'], data['answer'])
 
 for i in range(len(question_data)):
-    qText = (data[i]['text'])
-    qAns = (data[i]['answer'])
+    qText = (data[i]['question'])
+    qAns = (data[i]['correct_answer'])
     qNew = Question(qText, qAns)
     question_bank.append(qNew)
 
