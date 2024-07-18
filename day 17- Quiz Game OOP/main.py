@@ -1,12 +1,9 @@
 from data import question_data
-import random
 from Quiz import Question, QuizBrain
 
 question_bank = []
-# given_q = random.randint(0,11)
+
 data = question_data
-#
-# init_question = Question(data['text'], data['answer'])
 
 for i in range(len(question_data)):
     qText = (data[i]['question'])

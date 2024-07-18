@@ -11,7 +11,7 @@ class QuizBrain:
         self.score = 0
 
     def still_has_question(self):
-        return self.question_number < len(self.question_list)  #has to be less than
+        return self.question_number < len(self.question_list)  # has to be less than
         # if self.question_number > len(self.question_list):
         #     self.q_Bool = False
 
