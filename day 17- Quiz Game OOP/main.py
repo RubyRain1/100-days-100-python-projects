@@ -1,5 +1,9 @@
 from data import question_data
-from Quiz import Question, QuizBrain
+
+from Quiz import Question
+
+from Quiz import QuizBrain
+
 
 question_bank = []
 
@@ -18,5 +22,5 @@ while is_true:
     qNum.next_question()
 
 if not is_true:
-    print("You have completed the quiz")
-    print(f"your total score was {qNum.score}/{qNum.question_number}")
+    print("you have completed the quiz")
+    print(f"Your total score was {qNum.score}/{qNum.question_number}")
