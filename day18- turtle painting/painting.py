@@ -25,31 +25,33 @@ rows = 0
 y = 0
 t.colormode(255)  #allows the use of 0,255 rgb
 
-def dotcolor():
-    rColor = color_list[random.randint(0, 26)]
-    return rColor
+numberofdots = 100
 
 def dotrow():
     global turn_logic, turn_check
     timmy.speed("fastest")
-    timmy.dot(40, dotcolor())
-    for i in range(0,11):
-        timmy.penup()
-        timmy.forward(5)
-        timmy.pendown()
+    timmy.penup()
+    timmy.setheading(225)
+    timmy.forward(300)
+    timmy.setheading(0)
+
+    for i in range(1,numberofdots + 1):
+        timmy.dot(20, random.choice(color_list))
+        timmy.forward(50)
+        if i % 10 == 0:
+            timmy.setheading(90)
+            timmy.forward(50)
+            timmy.setheading(180)
+            timmy.forward(500)
+            timmy.setheading(0)
 
 
 def turnleft():
     timmy.speed("fastest")
-    timmy.penup()
-    timmy.left(90)
-    timmy.forward(20)
-    timmy.left(90)
 
-def newrow():
-    timmy.penup()
-    timmy.setpos(0, y)
-    timmy.pendown()
+
+def turnright():
+    timmy.setheading(0)
 
 timmy = t.Turtle()
 timmy.color("white")
@@ -57,18 +59,6 @@ timmy.shape("turtle")
 my_screen = t.Screen()
 my_screen.bgcolor(113,98,122)
 
-while cont:
-    while count <5:
-        dotrow()
-        count+=1
-        y+= 10
-    newrow()
-    #this helps to finish the program.
-    count = 0
-    rows += 1
-    if rows == 5:  #once five rows are made the program while loop stops.
-        timmy.hideturtle()
-        cont = False
-
-
+dotrow()
+timmy.hideturtle()
 my_screen.exitonclick()
