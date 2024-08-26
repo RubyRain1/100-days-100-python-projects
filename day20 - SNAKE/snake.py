@@ -1,13 +1,19 @@
 import turtle as t
-from turtle import Turtle, Screen
+from turtle import Turtle
 
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
 DIRECTION = [0, 90, 180, 270]
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
+
 class Snake:
     def __init__(self):
         self.snake_list = []
         self.createbody()
+        self.head = self.snake_list[0]
 
     def createbody(self):
         for start_snake_body in STARTING_POSITIONS:
@@ -22,16 +28,20 @@ class Snake:
             next_x = self.snake_list[i - 1].xcor()
             next_y = self.snake_list[i - 1].ycor()
             self.snake_list[i].goto(next_x, next_y)
-        self.snake_list[0].forward(MOVE_DISTANCE)
+        self.head.forward(MOVE_DISTANCE)
 
     def up(self):
-        self.snake_list[0].setheading(90)
+        if self.head.heading() != DOWN:
+            self.head.setheading(UP)
 
     def left(self):
-        self.snake_list[0].setheading(180)
+        if self.head.heading() != RIGHT:
+            self.head.setheading(180)
 
     def right(self):
-        self.snake_list[0].setheading(DIRECTION[0])
+        if self.head.heading() != LEFT:
+            self.head.setheading(DIRECTION[0])
 
     def down(self):
-        self.snake_list[0].setheading(270)
+        if self.head.heading() != UP:
+            self.head.setheading(270)
