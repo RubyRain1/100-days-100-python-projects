@@ -9,6 +9,7 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
+
 class Snake:
     def __init__(self):
         self.snake_list = []
@@ -17,12 +18,18 @@ class Snake:
 
     def createbody(self):
         for start_snake_body in STARTING_POSITIONS:
-            snake = t.Turtle("square")
-            snake.color("white")
-            snake.penup()
-            snake.goto(start_snake_body)
-            self.snake_list.append(snake)
+            self.add_body(start_snake_body)
 
+
+    def add_body(self, start_snake_body):
+        snake = t.Turtle("square")
+        snake.color("white")
+        snake.penup()
+        snake.goto(start_snake_body)
+        self.snake_list.append(snake)
+
+    def extend(self):
+        self.add_body(self.snake_list[-1].position())
     def move(self):
         for i in range(len(self.snake_list) - 1, 0, -1):
             next_x = self.snake_list[i - 1].xcor()
@@ -45,3 +52,5 @@ class Snake:
     def down(self):
         if self.head.heading() != UP:
             self.head.setheading(270)
+
+

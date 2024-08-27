@@ -15,10 +15,10 @@ snake = Snake()
 food = Food()
 score_board = Scoreboard()
 screen.listen()
-screen.onkey(snake.up,"w")
-screen.onkey(snake.left,"a")
-screen.onkey(snake.down,"s")
-screen.onkey(snake.right,"d")
+screen.onkey(snake.up, "w")
+screen.onkey(snake.left, "a")
+screen.onkey(snake.down, "s")
+screen.onkey(snake.right, "d")
 start = True
 food.spawn()
 score_board.score()
@@ -32,3 +32,16 @@ while start:
         score_board.count += 1
         score_board.clear()
         score_board.score()
+        snake.extend()
+
+    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+        score_board.game_over()
+        start = False
+
+    #detecting tail collision
+    for i in snake.snake_list[1:]:
+        if snake.head.distance(i) < 10:
+            start = False
+            score_board.game_over()
+
+screen.exitonclick()
