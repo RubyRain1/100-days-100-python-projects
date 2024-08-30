@@ -38,7 +38,7 @@ while start:
         score_board.game_over()
         start = False
 
-    #detecting tail collision
+    #detecting tail collision.
     for i in snake.snake_list[1:]:
         if snake.head.distance(i) < 10:
             start = False
