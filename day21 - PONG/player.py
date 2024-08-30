@@ -28,6 +28,11 @@ class Player:
             self.player_list[i].goto(next_x, next_y)
         self.player_start.forward(MOVE_DISTANCE)
 
+        if self.player_start.ycor() < -275:
+            self.player_start.setheading(90)
+        elif self.player_start.ycor() > 275:
+            self.player_start.setheading(270)
+
     def add_body_player(self, start_player_body):
         player = turtle.Turtle("square")
         player.color("white")
@@ -38,5 +43,7 @@ class Player:
     def up(self):
         self.player_start.setheading(UP)
 
+
     def down(self):
         self.player_start.setheading(DOWN)
+

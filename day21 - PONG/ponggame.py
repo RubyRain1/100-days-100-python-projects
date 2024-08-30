@@ -43,6 +43,7 @@ while start:
         score.player_score_number()
         score.computer_score_number()
         ball.ball_reset()
+        screen.update()
         ball.ball_angle()
         time.sleep(1)
 
@@ -52,6 +53,7 @@ while start:
         score.computer_score_number()
         score.player_score_number()
         ball.ball_reset()
+        screen.update()
         ball.ball_angle()
         time.sleep(1)
 
