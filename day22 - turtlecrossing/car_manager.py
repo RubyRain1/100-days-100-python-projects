@@ -7,6 +7,7 @@ STARTING_MOVE_DISTANCE = 5
 MOVE_INCREMENT = 10
 speed_count = 0
 
+STARTING_LANES = [()]
 
 class CarManager(Player):
 

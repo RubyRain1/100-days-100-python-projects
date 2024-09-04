@@ -3,6 +3,7 @@ from turtle import Screen
 from turtplayer import Player
 from car_manager import CarManager
 from turtscoreboard import Scoreboard
+from lanes import Lanes
 
 # GLOBALS
 car_count = 0
@@ -20,6 +21,7 @@ screen.listen()
 player = Player()
 car = CarManager()
 score = Scoreboard()
+lane = Lanes()
 
 screen.onkey(player.up, "Up")
 
