@@ -6,8 +6,8 @@ MOVE_DISTANCE = 20
 DIRECTION = [0, 90, 180, 270]
 UP = 90
 DOWN = 270
-LEFT = 180
-RIGHT = 0
+LEFT = 0
+RIGHT = 180
 
 
 class Snake:
@@ -27,6 +27,13 @@ class Snake:
         snake.penup()
         snake.goto(start_snake_body)
         self.snake_list.append(snake)
+
+    def reset(self):
+        for i in self.snake_list:
+            i.hideturtle()
+        self.snake_list.clear()
+        self.createbody()
+        self.head = self.snake_list[0]
 
     def extend(self):
         self.add_body(self.snake_list[-1].position())
