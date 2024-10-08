@@ -67,3 +67,31 @@ import math
 #
 # data = pandas.DataFrame(data_dict)
 # data.to_csv("new_data.csv")
+
+
+data = pandas.read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+# print(data["Primary Fur Color"])
+fur_dict = data["Primary Fur Color"].to_dict()
+
+gray_fur = 0
+cin_fur = 0
+black_fur = 0
+nan_fur = 0
+for index in fur_dict:
+    if fur_dict[index] == "Gray":
+        gray_fur+=1
+    elif fur_dict[index] == "Cinnamon":
+        cin_fur+=1
+    elif fur_dict[index] == "Black":
+        black_fur+=1
+    else:
+        nan_fur+=1
+
+
+fur_data = {
+     "Fur Color": ["Gray", "Cinnamon", "Black", "NaN"],
+     "scores": [gray_fur,cin_fur,black_fur,nan_fur]
+ }
+
+fur_data_final = pandas.DataFrame(fur_data)
+fur_data_final.to_csv("fur_data.csv")
