@@ -24,7 +24,7 @@ while game:
         answer_state = screen.textinput(f"{score}/50 States Guessed",
                                         "enter a states name: ").lower().title()
         state_dict = data["state"].to_dict()
-    #isolate states row
+    # isolate states row
     for i in state_dict:
         if state_dict[i] == answer_state:
             state_data = data[data.state == f"{answer_state}"]
@@ -38,8 +38,8 @@ while game:
     game = True
 
     if score == 50:
-        author.setpos(-250,0)
-        author.write("GAME OVER, YOU WIN", font=("",40,"normal"))
+        author.setpos(-250, 0)
+        author.write("GAME OVER, YOU WIN", font=("", 40, "normal"))
         game = False
 
 screen.exitonclick()
