@@ -10,8 +10,15 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
+timer = None
 # ---------------------------- TIMER RESET ------------------------------- #
-
+def prog_reset():
+    window.after_cancel(timer)
+    title_label.config(text= "TIMER", fg= GREEN)
+    canvas.itemconfig(timer_text, text = "00:00")
+    check_label.config(text= "")
+    global reps
+    reps = 0
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_countdown():
     global reps
@@ -39,9 +46,15 @@ def countdown(count):
         count_sec = f"0{count_sec}"
     canvas.itemconfig(timer_text, text = f"{count_min}:{count_sec}")
     if count > 0:
-        window.after(1000,countdown,count-1 )
+        global  timer
+        timer = window.after(1000,countdown,count-1 )
     else:
         start_countdown()
+
+        marks = ""
+        for _ in range(math.floor(reps/2)):
+            marks += "✔"
+        check_label.config(text= marks)
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
@@ -51,8 +64,8 @@ window.config(padx=100, pady=50, bg= YELLOW)
 title_label = Label(text= "TIMER", fg = GREEN, bg = YELLOW, font= (FONT_NAME, 50))
 
 start_button = Button(text= "Start", command=start_countdown)
-reset_button = Button(text= "Reset")
-check_label = Label(text= "✔", fg= GREEN, bg= YELLOW, font= (FONT_NAME, 20, "bold"))
+reset_button = Button(text= "Reset", command=prog_reset)
+check_label = Label(fg= GREEN, bg= YELLOW, font= (FONT_NAME, 20, "bold"))
 canvas = Canvas(width=200, height=224, background= YELLOW, highlightthickness= 0)
 tomato_image = PhotoImage(file="tomato.png")
 canvas.create_image(100,112, image = tomato_image)
