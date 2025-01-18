@@ -3,7 +3,6 @@ from tkinter import messagebox
 from random import shuffle, choice
 import pyperclip
 import json
-import cryptography
 from cryptography.fernet import Fernet
 
 
@@ -31,13 +30,13 @@ def gen_password():
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
-def generate_and_store_key(filename="secret.key"):
-    """Generate a new key and store it in a file."""
-    key = Fernet.generate_key()
-    with open(filename, "wb") as key_file:
-        key_file.write(key)
-
-generate_and_store_key()
+# def generate_and_store_key(filename="secret.key"):
+#     """Generate a new key and store it in a file."""
+#     key = Fernet.generate_key()
+#     with open(filename, "wb") as key_file:
+#         key_file.write(key)
+#
+# generate_and_store_key()
 def load_key(key_filename="secret.key"):
     """Loads a previously generated key (bytes) from a file."""
     with open(key_filename, "rb") as key_file:
@@ -113,20 +112,61 @@ def on_add():
 
 
 def search_pass():
+    """Decrypts the JSON file, then searches for a given website's credentials."""
+    searched_website = website_entry.get()
+    if not searched_website:
+        messagebox.showerror(title="Input Error", message="Please enter a website to search for.")
+        return
+
     try:
-        with open("my_passwords.json", "r") as add_password:
-            # raeding old data
-            data = json.load(add_password)
-            searched_website = website_entry.get()
+        with open("my_passwords.json", "rb") as enc_file:
+            encrypted_data = enc_file.read()
+
+        # Decrypt the file contents to get a JSON string
+        decrypted_data = fernet.decrypt(encrypted_data)
+
+        # Parse the decrypted JSON into a Python dictionary
+        data = json.loads(decrypted_data.decode("utf-8"))
+
     except FileNotFoundError:
-        messagebox.showerror(title="File Error", message="You have no passwords on file")
+        messagebox.showerror(title="File Error", message="You have no passwords on file.")
+        return
+    except Exception as e:
+        # Catch other errors (e.g., invalid file format, decryption failure, etc.)
+        messagebox.showerror(title="Decryption Error", message=f"Could not decrypt or parse data.\n{e}")
+        return
+
+    # Search for the user’s website in the decrypted dictionary
+    if searched_website in data:
+        credentials = data[searched_website]
+        messagebox.askokcancel(
+            title=f"Information For: {searched_website.capitalize()}",
+            message=(
+                f"Email: {credentials['email']}\n"
+                f"Password: {credentials['password']}"
+            )
+        )
+        # Copy the password to the clipboard
+        pyperclip.copy(credentials['password'])
     else:
-        for web, value in data.items():
-            if web == searched_website:
-                messagebox.askokcancel(title=f"Information For: {searched_website.capitalize()}",
-                                       message=f"Email: {data[searched_website]['email']} \n"
-                                               f"Password: {data[searched_website]['password']}")
-                pyperclip.copy(data[searched_website]['password'])
+        messagebox.showinfo(title="Not Found", message=f"No details for '{searched_website}' found.")
+
+
+    # THIS IS WHAT I DID ORIGINALLY I WANT TO KEEP THIS FOR REFERENCE
+    # try:
+    #     with open("my_passwords.json", "r") as add_password:
+    #         # raeding old data
+    #         data = json.load(add_password)
+    #         searched_website = website_entry.get()
+    # except FileNotFoundError:
+    #     messagebox.showerror(title="File Error", message="You have no passwords on file")
+    # else:
+    #     for web, value in data.items():
+    #         if web == searched_website:
+    #             messagebox.askokcancel(title=f"Information For: {searched_website.capitalize()}",
+    #                                    message=f"Email: {data[searched_website]['email']} \n"
+    #                                            f"Password: {data[searched_website]['password']}")
+    #             pyperclip.copy(data[searched_website]['password'])
 
 
 # ---------------------------- UI SETUP ------------------------------- #
