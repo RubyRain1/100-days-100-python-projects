@@ -24,23 +24,29 @@ for (index, row) in student_data_frame.iterrows():
 {"A": "Alfa", "B": "Bravo"}
 
 nato_data_frame = pandas.read_csv("nato_phonetic_alphabet.csv")
-print(nato_data_frame)
+
 
 nato_dict = {
-    row["letter"]: row["code"]
+    row.letter: row.code
     for _, row in nato_data_frame.iterrows()
 }
 
-print(nato_dict)
+
 #TODO 2. Create a list of the phonetic code words from a word that the user inputs.
 
-word = input("enter a word to convert: ")
-nato_conversions = [nato_dict[letter.upper()] for letter in word if letter.upper() in nato_dict]
-print(" ".join(nato_conversions))
+def generate_word():
+    word = input("enter a word to convert: ").upper()
+    try:
+        nato_conversions = [nato_dict[letter] for letter in word]
+    except KeyError:
+        print("please enter a valid letter/word.")
+        generate_word()
+    else:
+        print(" ".join(nato_conversions))
 
 
 
-
+generate_word()
 
 
 
