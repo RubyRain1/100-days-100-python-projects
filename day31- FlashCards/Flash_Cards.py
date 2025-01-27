@@ -16,6 +16,7 @@ data = pandas.read_csv("data/japanese_words.csv")
 data_dict = dict(zip(data['Japanese'], data['English']))
 language_list = [key for key in data_dict.keys()]
 word_list = [value for value in data_dict.values()]
+known_list = [] #this will be appended too when someone clicks the check button
 i = 0
 is_flipped = False
 def changecard():
@@ -38,6 +39,10 @@ def forward_items():
     global i
 
     canvas.itemconfig(word_label, text = language_list[i +1])
+    item = language_list.pop(i)
+    known_list.append(item)
+    print(known_list)
+    print(language_list)
     i+=1
 
 
